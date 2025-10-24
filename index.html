@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protocolo Experimental</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="main-container">
+
+    <div id="welcome-screen">
+      <div class="screen-content">
+        <h1>Bienvenido/a al Experimento</h1>
+        <p>Gracias por participar. Este estudio investiga la relación entre la percepción y la atención. Su duración aproximada es de 40 minutos.</p>
+        <div class="consent-box"><p><strong>Consentimiento Informado:</strong></p><p>Ud. es mayor de 18 años. Su participación es voluntaria. Todos los datos recolectados serán anónimos y confidenciales. Usted puede decidir abandonar el experimento en cualquier momento sin ninguna penalización. Los datos serán utilizados exclusivamente con fines de investigación académica.</p></div>
+        <div class="screening-questions">
+        <div class="question-row">
+          <p>¿Tenés alguna dificultad <strong>visual</strong> transitoria o permanente?</p>
+          <div class="checkbox-group" id="visual-check">
+            <label><input type="checkbox" name="visual" value="si"> SI</label>
+            <label><input type="checkbox" name="visual" value="no"> NO</label>
+          </div>
+        </div>
+        <div class="question-row">
+          <p>¿Tenés alguna dificultad <strong>auditiva</strong> transitoria o permanente?</p>
+          <div class="checkbox-group" id="audio-check">
+            <label><input type="checkbox" name="audio" value="si"> SI</label>
+            <label><input type="checkbox" name="audio" value="no"> NO</label>
+          </div>
+        </div>
+        <div class="question-row">
+          <p>¿Tenés alguna dificultad <strong>olfativa</strong> transitoria o permanente?</p>
+          <div class="checkbox-group" id="olfactory-check">
+            <label><input type="checkbox" name="olfactory" value="si"> SI</label>
+            <label><input type="checkbox" name="olfactory" value="no"> NO</label>
+          </div>
+        </div>
+        <p id="ineligible-message" class="hidden">Gracias por tu interés. Para participar en este estudio, es necesario no presentar dificultades sensoriales. ¡Gracias de todas formas!</p>
+      </div>
+        <div class="consent-action"><input type="checkbox" id="consent-checkbox"><label for="consent-checkbox">He leído y acepto los términos para participar.</label></div>
+      </div>
+      <div class="screen-footer"><button id="start-button" disabled>Comenzar</button></div>
+    </div>
+
+    <div id="id-screen" class="hidden">
+        <div class="screen-content"><h1>Creación de Identificador</h1><p>Por favor, crea tu código de participante anónimo para el experimento.</p><div class="instructions-box">Escribe las <strong>tres últimas letras</strong> de tu primer apellido, seguido del <strong>día de tu nacimiento</strong> (2 dígitos) y la <strong>fecha de hoy</strong> en formato DDMMAAAA (8 dígitos).<br><br><i>Ejemplo: Si te apellidas Smith, naciste el 13 de febrero y hoy es <span id="example-date"></span>, tu ID sería: <strong>ith13<span id="example-id-date"></span></strong></i></div><input type="text" id="id-input" placeholder="Escribe tu ID aquí..."></div>
+        <div class="screen-footer"><button id="id-next-button" disabled>Guardar y Continuar</button></div>
+    </div>
+
+    <div id="demographics-screen" class="hidden">
+        <div class="screen-content"><h1>Información Adicional</h1><p>Por favor, completa los siguientes datos con fines estadísticos. Tu identidad permanecerá anónima.</p><div class="form-field"><label for="age-input">Edad:</label><input type="number" id="age-input" min="18"></div><div class="form-field"><label for="gender-select">Género:</label><select id="gender-select"><option value="">Selecciona una opción</option><option value="masculino">Masculino</option><option value="femenino">Femenino</option><option value="otro">Otro</option><option value="prefiero_no_decir">Prefiero no decir</option></select></div><div class="form-field"><label for="major-input">Carrera que estudiás:</label><input type="text" id="major-input" placeholder="Ej: Lic. en Artes Electrónicas"></div></div>
+        <div class="screen-footer"><button id="demographics-next-button" disabled>Continuar</button></div>
+    </div>
+    
+    <div id="big-five-screen" class="hidden">
+        <div class="screen-content"><h1>Cuestionario de Personalidad</h1><p>A continuación, por favor completá un breve cuestionario de personalidad (Big Five). Al hacer clic en el botón, se abrirá en una nueva pestaña.</p><p>Tu ID de participante ya ha sido autocompletado. Por favor, no lo modifiques.</p><p><strong>Cuando termines y envíes el formulario, cerrá esa pestaña y volvé aquí para continuar con el experimento.</strong></p></div>
+        <div class="screen-footer"><button id="open-big-five-button">Abrir Cuestionario</button><button id="big-five-next-button">He completado el cuestionario</button></div>
+    </div>
+
+    <div id="setup-screen" class="hidden">
+        <div class="screen-content"><h1>Preparación</h1><p>Por favor, colocate los auriculares, presioná el botón "test-audio" y ajustá el volumen a un nivel cómodo usando el control deslizante.</p><audio id="test-audio" src="/musicas/prueba.mp3" preload="auto"></audio><button id="play-test-audio-button">Probar Sonido 🎧</button><div><label for="volume-slider">Volumen:</label><input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5"></div></div>
+        <div class="screen-footer"><button id="setup-next-button">Siguiente</button></div>
+    </div>
+
+    <div id="baseline-screen" class="hidden">
+        <div class="screen-content">
+            <h1 id="baseline-title">Evaluación Inicial</h1>
+            <p>Por favor, evaluá cómo te sentís en este preciso momento seleccionando un número.</p>
+
+            <div class="scale-container">
+              <label>Valencia (Agrado)</label>
+              <p class="scale-explanation">Cuán agradable es el momento actual o cuán feliz te sentís. Si ahora mismo te sentís muy feliz o en un estado muy agradable, podés marcar cerca del 9 (la figura sonriente). Si te sentís muy triste o sentís mucho desagrado, podés marcar cerca del 1 (la figura con el ceño fruncido). La figura del medio es un punto neutro.</p>
+              <div class="sam-images-row">
+                  <img src="/images/valence-1.png" alt="Displacer máximo"><span class="spacer"></span>
+                  <img src="/images/valence-3.png" alt=""><span class="spacer"></span>
+                  <img src="/images/valence-5.png" alt="Neutro"><span class="spacer"></span>
+                  <img src="/images/valence-7.png" alt=""><span class="spacer"></span>
+                  <img src="/images/valence-9.png" alt="Placer máximo">
+              </div>
+              <div class="sam-scale-wrapper">
+                <div class="sam-scale" id="scale-valence">
+                  <div class="sam-option" data-value="1">1</div><div class="sam-option" data-value="2">2</div><div class="sam-option" data-value="3">3</div><div class="sam-option" data-value="4">4</div><div class="sam-option" data-value="5">5</div><div class="sam-option" data-value="6">6</div><div class="sam-option" data-value="7">7</div><div class="sam-option" data-value="8">8</div><div class="sam-option" data-value="9">9</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="scale-container">
+              <label>Activación (Energía)</label>
+              <p class="scale-explanation">La segunda fila mide tu nivel de energía o activación. Si en este momento te sentís muy activado, excitado o alerta, marcá cerca del 9 (la figura con los ojos abiertos). Si, por el contrario, te sentís muy calmado, relajado o somnoliento, marcá cerca del 1 (la figura adormilada). La figura del medio es un punto neutro.</p>
+              <div class="sam-images-row">
+                <img src="/images/arousal-1.png" alt="Calma máxima"><span class="spacer"></span>
+                <img src="/images/arousal-3.png" alt=""><span class="spacer"></span>
+                <img src="/images/arousal-5.png" alt="Neutro"><span class="spacer"></span>
+                <img src="/images/arousal-7.png" alt=""><span class="spacer"></span>
+                <img src="/images/arousal-9.png" alt="Excitación máxima">
+              </div>
+              <div class="sam-scale-wrapper">
+                <div class="sam-scale" id="scale-arousal">
+                  <div class="sam-option" data-value="1">1</div><div class="sam-option" data-value="2">2</div><div class="sam-option" data-value="3">3</div><div class="sam-option" data-value="4">4</div><div class="sam-option" data-value="5">5</div><div class="sam-option" data-value="6">6</div><div class="sam-option" data-value="7">7</div><div class="sam-option" data-value="8">8</div><div class="sam-option" data-value="9">9</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="scale-container">
+              <label>Dominancia (Control)</label>
+              <p class="scale-explanation">La última fila mide tu sensación de control. Si ahora mismo sentís que tenés el control total de tus acciones y de la situación, marcá cerca del 9 (la figura grande). Si sentís que no tenés control o que estás siendo influenciado por tus emociones, marcá cerca del 1 (la figura pequeña). La figura del medio es un punto neutro.</p>
+              <div class="sam-images-row">
+                  <img src="/images/dominance-1.png" alt="Poco Control"><span class="spacer"></span>
+                  <img src="/images/dominance-3.png" alt=""><span class="spacer"></span>
+                  <img src="/images/dominance-5.png" alt="Control Neutro"><span class="spacer"></span>
+                  <img src="/images/dominance-7.png" alt=""><span class="spacer"></span>
+                  <img src="/images/dominance-9.png" alt="Mucho Control">
+              </div>
+              <div class="sam-scale-wrapper">
+                  <div class="sam-scale" id="scale-control">
+                    <div class="sam-option" data-value="1">1</div><div class="sam-option" data-value="2">2</div><div class="sam-option" data-value="3">3</div><div class="sam-option" data-value="4">4</div><div class="sam-option" data-value="5">5</div><div class="sam-option" data-value="6">6</div><div class="sam-option" data-value="7">7</div><div class="sam-option" data-value="8">8</div><div class="sam-option" data-value="9">9</div>
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class="screen-footer">
+            <button id="baseline-next-button" disabled>Siguiente</button>
+        </div>
+    </div>
+
+    <div id="stroop-practice-instructions" class="hidden">
+      <div class="screen-content"><h1>Práctica: Test de Stroop</h1><p>A continuación, realizarás una breve práctica para familiarizarte con la tarea. <strong>No hay límite de tiempo.</strong></p><p id="stroop-practice-instruction-text"></p></div>
+      <div class="screen-footer"><button id="stroop-practice-start-button">Comenzar Práctica</button></div>
+    </div>
+    <div id="stroop-practice-end-screen" class="hidden">
+        <div class="screen-content"><h1>Práctica completada</h1><p>¡Muy bien! Ahora comenzará la prueba real.</p><p id="stroop-real-instruction-text"></p></div>
+        <div class="screen-footer"><button id="stroop-real-test-start-button">Comenzar Test</button></div>
+    </div>
+    <div id="stroop-task-screen" class="hidden">
+        <div class="screen-content"><div class="task-header"><p id="stroop-progress"></p><p id="stroop-timer"></p></div><div id="stroop-stimulus">ESTÍMULO</div><div id="stroop-text-buttons" class="button-container hidden"><button class="text-button" data-word="rojo">ROJO</button><button class="text-button" data-word="verde">VERDE</button><button class="text-button" data-word="azul">AZUL</button></div><div id="stroop-color-buttons" class="button-container hidden"><button class="color-button" data-color="red"></button><button class="color-button" data-color="green"></button><button class="color-button" data-color="blue"></button></div></div>
+    </div>
+    
+    <div id="tmt-practice-instructions" class="hidden">
+        <div class="screen-content"><h1>Práctica: Test de Trazado</h1><p>Realizarás una breve práctica para entender el mecanismo. <strong>No hay límite de tiempo.</strong></p><p id="tmt-practice-instruction-text"></p></div>
+        <div class="screen-footer"><button id="tmt-practice-start-button">Comenzar Práctica</button></div>
+    </div>
+    <div id="tmt-practice-end-screen" class="hidden">
+        <div class="screen-content"><h1>Práctica completada</h1><p>¡Muy bien! Ahora comenzará la prueba real. Intentá hacerlo lo más rápido posible sin cometer errores.</p></div>
+        <div class="screen-footer"><button id="tmt-real-test-start-button">Comenzar Test</button></div>
+    </div>
+    <div id="tmt-task-screen" class="hidden">
+        <div class="screen-content"><div id="tmt-canvas-container"><canvas id="tmt-canvas"></canvas><div id="tmt-circles-container"></div></div></div>
+    </div>
+
+    <div id="relaxation-instructions-screen" class="hidden">
+        <div class="screen-content"><h1>Fase de Relajación</h1><p id="relaxation-instructions-text"></p><p>Esta fase durará <strong id="relaxation-duration-text">5</strong> minutos. Por favor, intentá relajarte.</p></div>
+        <div class="screen-footer"><button id="start-relaxation-button">Comenzar Relajación</button></div>
+    </div>
+    <div id="relaxation-phase-screen" class="hidden">
+        <div class="screen-content"><h2>Relajate...</h2><audio id="relaxation-audio" src="" preload="auto"></audio></div>
+    </div>
+    <div id="final-screen" class="hidden">
+        <div class="screen-content">
+            <h1>Experimento Finalizado</h1>
+            <p>¡Muchas gracias por tu tiempo y participación!</p>
+            <p class="important-instruction">Por favor, avisale al experimentador para continuar con la última parte de la sesión antes de presionar el botón.</p>
+        </div>
+        <div class="screen-footer">
+            <button id="show-graph-button">Iniciar Biofeedback</button>
+        </div>
+    </div>
+
+    <div id="biofeedback-display-screen" class="hidden">
+        <div class="screen-content">
+            <h1>Tu Respuesta Fisiológica</h1>
+            <p>Este gráfico muestra la evolución de tu respuesta galvánica de la piel. Ahora lo discutiremos juntos.</p>
+            <div id="feedback-graph-container">
+                <img id="feedback-graph-image" src="" alt="Gráfico de Biofeedback" style="display: none;"/>
+                <p id="graph-loading-message">Generando gráfico, por favor esperá...</p>
+            </div>
+        </div>
+        <div class="screen-footer">
+            <button id="end-session-button">Finalizar Sesión</button>
+        </div>
+    </div>
+
+    <div id="goodbye-screen" class="hidden">
+        <div class="screen-content">
+            <h1>¡Todo listo!</h1>
+            <p>¡Muchas gracias nuevamente por tu participación!</p>
+        </div>
+    </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
